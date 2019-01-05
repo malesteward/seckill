@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情页面</title>
+</head>
+<!--<script src="/seckweb/js/jquery.min.js"></script>-->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/seckill.js}"></script>
+<script th:src="@{/js/jquery.countdown.min.js}"></script>
+
+<script th:inline="javascript">
+    $(function () {
+        seckillObj.contextPath = [[${#request.getContextPath()}]]
+        var currentTime = [[${currentTime}]];
+        var startTime = [[${goods.starttime.getTime()}]];
+        var endTime = [[${goods.endtime.getTime()}]];
+        var id = [[${goods.id}]];
+            seckillObj.func.initGoods(currentTime,startTime,endTime,id);
+
+    });
+
+
+</script>
+
+<body th:inline="text" style="margin: 38px;">
+    <div style="float: left;margin: 15px;">
+            <img th:src="${goods.imageurl}">
+    </div>
+    <div style="float: left; margin: 15px;">
+        <p>
+          [[${goods.name}]] [[${goods.namedesc}]]
+        </p>
+        <p>
+            <span style="font-weight: bold; font-size: 20px; color:#e886ff;"/>￥ [[${goods.price}]]</span> 剩余:[[${goods.store}]] 件
+        </p>
+        <p id="seckillTip"></p>
+    </div>
+
+</body>
+</html>

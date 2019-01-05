@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--======================================================================================================-->
+    <context:component-scan base-package="com.bjpowernode.multi.service"></context:component-scan>
+     <!--3307数据源-->
+    <bean id="dataSource3307" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="jdbc:mysql://192.168.68.128:3307/user?useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    </bean>
+    <!--3307数据源的sessionFactory-->
+    <bean id="sqlSessionFactory3307" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource3307"/>
+    </bean>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory3307"/>
+        <!--com.bjpowernode.multi.mapper.mapper3307包下的操作是操作3307数据库-->
+        <property name="basePackage" value="com.bjpowernode.multi.mapper.mapper3307"/>
+    </bean>
+
+<!--==========================================================================================================-->
+    <!--3308数据源-->
+    <bean id="dataSource3308" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="jdbc:mysql://192.168.68.128:3308/user?useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    </bean>
+
+    <!--3309数据源-->
+    <bean id="dataSource3309" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="jdbc:mysql://192.168.68.128:3309/user?useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    </bean>
+
+    <!--3310数据源-->
+    <bean id="dataSource3310" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="jdbc:mysql://192.168.68.128:3310/user?useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    </bean>
+
+
+    <!--3308数据源的sessionFactory-->
+    <bean id="sqlSessionFactory3308" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource3308"/>
+    </bean>
+
+    <!--3309数据源的sessionFactory-->
+    <bean id="sqlSessionFactory3309" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource3309"/>
+    </bean>
+
+    <!--3310数据源的sessionFactory-->
+    <bean id="sqlSessionFactory3310" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource3310"/>
+    </bean>
+
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory3308"/>
+        <!--com.bjpowernode.multi.mapper.mapper3307包下的操作是操作3308数据库-->
+        <property name="basePackage" value="com.bjpowernode.multi.mapper.mapper3308"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory3309"/>
+        <!--com.bjpowernode.multi.mapper.mapper3307包下的操作是操作3309数据库-->
+        <property name="basePackage" value="com.bjpowernode.multi.mapper.mapper3309"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory3310"/>
+        <!--com.bjpowernode.multi.mapper.mapper3307包下的操作是操作3310数据库-->
+        <property name="basePackage" value="com.bjpowernode.multi.mapper.mapper3310"/>
+    </bean>
+
+    <!--核心思想：mapper包的隔离思想-->
+    <!--添加事务的情况-->
+    <!--数据源提供了一种简单获取数据库连接的方式，并能在内部通过一个池的机制来复用数据库连接，-->
+    <!-- 这样就大大减少创建数据库连接的次数，提高了系统性能。&ndash;&gt;-->
+     <bean id="transactionManager3307" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+                <property name="dataSource" ref="dataSource3307"></property>
+     </bean>
+    <tx:annotation-driven transaction-manager="transactionManager3307"></tx:annotation-driven>
+
+
+    <bean id="transactionManager3308" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource3308"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager3308"/>
+
+    <bean id="transactionManager3309" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource3309"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager3309"/>
+
+    <bean id="transactionManager3310" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource3310"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager3310"/>
+
+
+</beans>

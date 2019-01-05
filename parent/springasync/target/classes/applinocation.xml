@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 配置一个连接工厂 -->
+    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://192.168.68.128:61616"/>
+    </bean>
+
+    <!-- 配置一个sping监听器的容器 -->
+    <bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <!--消息的目的地-->
+        <property name="destinationName" value="xue"/>
+        <!--当监听到消息后，回调哪个onMessage方法？ 需要提供一个监听器类-->
+        <property name="messageListener" ref="myMessageListener" />
+        <!--pubSubDomain=false表示点对点消息，true表示发布订阅消息，默认是false-->
+         <property name="pubSubDomain" value="true"/>
+
+    </bean>
+
+    <!-- 我们自定义的一个消息监听器 -->
+    <bean id="myMessageListener" class="com.boe.spring.listener.MyMessageListener" />
+</beans>

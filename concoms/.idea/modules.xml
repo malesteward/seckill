@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/concoms.iml" filepath="$PROJECT_DIR$/concoms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../seckservice/seckservice.iml" filepath="$PROJECT_DIR$/../seckservice/seckservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../seckweb/seckweb.iml" filepath="$PROJECT_DIR$/../seckweb/seckweb.iml" />
+    </modules>
+  </component>
+</project>

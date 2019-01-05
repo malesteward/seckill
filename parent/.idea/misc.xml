@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/all-customer/pom.xml" />
+        <option value="$PROJECT_DIR$/all-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/all-interface/pom.xml" />
+        <option value="$PROJECT_DIR$/java-conmon/pom.xml" />
+        <option value="$PROJECT_DIR$/activemq/pom.xml" />
+        <option value="$PROJECT_DIR$/01springmq/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

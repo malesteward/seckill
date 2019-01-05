@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap 实例 - 条纹表格</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<table class="table table-striped">
+    <thead>
+    <a th:href="@{/add/user}">+新增用户信息</a>
+    <tr>
+        <th>ID</th>
+        <th>nick</th>
+        <th>phone</th>
+        <th>address</th>
+        <th>email</th>
+        <th>操作</th>
+        <th>合同操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user:${userList}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.nick}"></td>
+        <td th:text="${user.phone}"></td>
+        <td th:text="${user.address}"></td>
+        <td th:text="${user.email}"></td>
+        <td> <a th:href="@{'/update/user?id='+${user.id}}">修改</a>
+            --<a th:href="@{'/delete/user?id='+${user.id}}">删除</a>
+
+        </td>
+        <td>
+            <span th:if="${user.email ne null && user.address ne null }" >
+                   --<a th:href="@{'/download/file?id='+${user.id}}">文件下载</a>
+                  <!--&#45;&#45;<a th:href="@{'/deletefile/user?id='+${user.id}}">文件删除</a>-->
+                    <a th:href="@{'/deletefile/user?id='+${user.id}}" id="button" >文件删除</a>
+
+                    <!--<a class="button border-red" href="#" th:href="@{'/deletefile/user?id='+${user.id}}"
+                       onclick="del([[${delete}]]);" th:value="${user.id}" value="1">
+                                        <span class="icon-trash-o">文件删除</span>
+                    </a>-->
+            </span>
+            <span th:if="${user.email == '' && user.address == '' }">
+                  <a th:href="@{'/uploading/file?id='+${user.id}}">文件上传</a>
+            </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<ul class="pager">
+    共<span th:text="${totalRows}"></span>条
+    共<span th:text="${totalPage}"></span>页
+    当前<span th:text="${currentPage}"></span>页
+    <span th:if="${currentPage} == 1">
+        首页 上一页
+    </span>
+    <span th:if="${currentPage} > 1">
+        <li><a th:href="@{'/query/alluser?currentPage='+${currentPage - 1}}"> 上一页</a></li>
+    </span>
+    <span th:if="${currentPage  == totalPage}">
+        尾页 下一页
+    </span>
+    <span th:if="${currentPage  < totalPage}">
+         <li><a th:href="@{'/query/alluser?currentPage='+${currentPage + 1}}">下一页</a></li>
+    </span>
+</ul>
+</body>
+</html>
+<script  type="text/javascript">
+    function myClick(de) {
+
+        if (confirm("您确定要删除吗？")) {
+                if (de == 0){
+                    alert("删除成功");
+                    return true;
+                }else {
+                    alert("删除失败");
+                    return false;
+                }
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">>
+<head>
+    <meta charset="UTF-8">
+    <title>1元秒杀频道</title>
+</head>
+<body th:inline="text" style="margin: 38px;">
+    <div th:each="goods:${goodsList}" th:style="${goodsStat.count % 5 == 0 ? 'clear: both;float: left; width: 280px;':'float: left; width: 280px;'}">
+
+        <a th:href="@{'/seckill/goods/'+${goods.id}}" target="_blank">
+            <img th:src="${goods.imageurl}"><br/>
+        </a>
+        <a th:href="@{'/seckill/goods/'+${goods.id}}" target="_blank">
+          [[${goods.name}]] [[${goods.namedesc}]] <br/>
+        </a>
+        <span style="font-weight: bold; font-size: 20px; color:#e886ff;"/>￥ [[${goods.price}]]</span> 剩余:[[${goods.store}]] 件
+    </div>
+
+
+
+</body>
+</html>

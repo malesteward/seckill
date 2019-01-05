@@ -1,0 +1,51 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap 文件是上传表单</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap 实例 - 内联表单</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<form class="form-inline" role="form" th:action="@{/fastdfs/uploadfile}" enctype="multipart/form-data" method="post" target="uploadframe">
+    <div class="form-group">
+        <label class="sr-only" for="name">名称</label>
+        <input type="text" class="form-control" id="name"
+               placeholder="请输入名称">
+    </div>
+    <div class="form-group">
+        <label class="sr-only" for="inputfile">文件输入</label>
+        <input type="file" id="inputfile" name="inputfile">
+    </div>
+    <input type="hidden" id="id" name="id" th:value="${id}">
+    <button type="submit" class="btn btn-default">提交</button>
+</form>
+<iframe name="uploadframe" style="display: none;"></iframe>
+<script type="text/javascript" th:inline="javascript">
+    function uploadok(result) {
+        if (result == 0){
+            alert("文件上传成功");
+            window.location.href = [[${#request.getContextPath()}]]+"/query/alluser";
+        }else {
+            alert("上传失败")
+        }
+    }
+
+
+</script>
+</body>
+</html>
+</body>
+</html>

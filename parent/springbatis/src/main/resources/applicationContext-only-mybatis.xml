@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!--======================================================================================================-->
+    <context:component-scan base-package="com.bjpowernode.multi.service"></context:component-scan>
+     <!--3307数据源-->
+    <bean id="dataSource3307" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="jdbc:mysql://192.168.68.128:3307/user?useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    </bean>
+
+<!--==========================================================================================================-->
+    <!--3308数据源-->
+    <bean id="dataSource3308" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="jdbc:mysql://192.168.68.128:3308/user?useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    </bean>
+    <!--==========================================================================================================-->
+
+    <!--3309数据源-->
+    <bean id="dataSource3309" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="jdbc:mysql://192.168.68.128:3309/user?useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    </bean>
+    <!--==========================================================================================================-->
+
+    <!--3310数据源-->
+    <bean id="dataSource3310" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="jdbc:mysql://192.168.68.128:3310/user?useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    </bean>
+
+    <!--==========================================================================================================-->
+
+    <!--数据源的sessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--不能引用一个具体写死的数据源，需要引用一个动态的数据源-->
+        <property name="dataSource" ref="dynamicDataSource"/>
+    </bean>
+    <!--配置一个动态数据源，在代码运行时候，才知道具体要用那个数据源-->
+    <bean id="dynamicDataSource" class="com.bjpowernode.multi.dynamic.DynamicDataSource">
+        <property name="targetDataSources">
+            <map>
+                <entry key="3307" value-ref="dataSource3307"></entry>
+                <entry key="3308" value-ref="dataSource3308"></entry>
+                <entry key="3309" value-ref="dataSource3309"></entry>
+                <entry key="3310" value-ref="dataSource3310"></entry>
+            </map>
+        </property>
+
+    </bean>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--com.bjpowernode.multi.mapper包下的操作是操作3310数据库-->
+        <property name="basePackage" value="com.bjpowernode.multi.mapper.mapper3307,com.bjpowernode.multi.mapper.mapper3308,com.bjpowernode.multi.mapper.mapper3309,com.bjpowernode.multi.mapper.mapper3310"/>
+    </bean>
+    <!--==========================================================================================================-->
+    <!--核心思想：mapper包的隔离思想-->
+    <!--添加事务的情况-->
+    <!--数据源提供了一种简单获取数据库连接的方式，并能在内部通过一个池的机制来复用数据库连接，-->
+    <!-- 这样就大大减少创建数据库连接的次数，提高了系统性能。&ndash;&gt;-->
+     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+                <property name="dataSource" ref="dynamicDataSource"></property>
+     </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+
+</beans>

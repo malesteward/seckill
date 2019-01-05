@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../01springmq/01springmq.iml" filepath="$PROJECT_DIR$/../01springmq/01springmq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/activemq.iml" filepath="$PROJECT_DIR$/activemq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../springasync/springasync.iml" filepath="$PROJECT_DIR$/../springasync/springasync.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../springbootmq/springbootmq.iml" filepath="$PROJECT_DIR$/../../springbootmq/springbootmq.iml" />
+    </modules>
+  </component>
+</project>
